@@ -12,22 +12,25 @@ const Task = db.define('Task', {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-      notEmpty: true
-    }
+      notEmpty: true,
+    },
   },
   complete: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
+    defaultValue: false,
   },
-  due: Sequelize.DATE
+  due: Sequelize.DATE,
 });
 
+// function clearCompleted() {
+//   Task.destroy({ where: { complete: true } });
+// }
 
-
-Task.belongsTo(Task, {as: 'parent'});
-
+const clearCompleted = () => {
+  Task.destroy({ where: { complete: true } });
+};
+Task.belongsTo(Task, { as: 'parent' });
 
 //---------^^^---------  your code above  ---------^^^----------
 
 module.exports = Task;
-
